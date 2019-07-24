@@ -5,6 +5,7 @@ import csv
 from lxml import html
 from urllib.parse import unquote
 
+
 def return_wiki_html(topic):
     wiki_request = requests.get(f'https://ru.wikipedia.org/wiki/{topic.capitalize()}')
     return wiki_request.text
@@ -30,21 +31,22 @@ def return_words_from_links(link):
 
 
 def write_words_from_topic_to_csv(counter, topic):
-    words = []
-    counts = []
-    for word, count in counter:
-        words.append(word)
-        counts.append(count)
+    # words = []
+    # counts = []
+    # for word, count in counter:
+    #    words.append(word)
+    #    counts.append(count)
 
-    data = [['Слово', 'Количество'],
-            words,
-            counts]
+    # data = [['Слово', 'Количество'],
+    #        words,
+    #        counts]
     name = f'{topic}.csv'
     name = re.sub('[!@#$/:;]', '', name)
 
     with open(name, mode='w', newline='') as csv_file:
         writer = csv.writer(csv_file)
-        for row in data:
+        writer.writerow(['Word', 'Count'])
+        for row in counter:
             writer.writerow(row)
 
 
