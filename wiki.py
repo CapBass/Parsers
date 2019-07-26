@@ -5,7 +5,6 @@ import csv
 from lxml import html
 
 
-
 def return_wiki_html(topic):
     wiki_request = requests.get(f'https://ru.wikipedia.org/wiki/{topic.capitalize()}')
     return wiki_request.text
@@ -24,9 +23,10 @@ def get_links(topic):
 def return_words_from_links(link):
     try:
         html = requests.get(link).text
-    except:
+    except requests.exceptions.ConnectionError:
         print(f'Соединение c {link} не установлено')
-        return None
+        exit(1)
+
     words = re.findall('[а-яА-Я]{3,}', html)
     words_counter = collections.Counter()
     for word in words:
