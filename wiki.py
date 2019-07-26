@@ -16,6 +16,7 @@ def get_links(topic):
     page = requests.get(f'https://ru.wikipedia.org/wiki/{topic}')
     tree = html.fromstring(page.content)
     links = tree.xpath('//a[@class=\"external text\"]/@href')
+    links = [link for link in links if 'http' in link]
     names = tree.xpath('//a[@class=\"external text\"]/text()')
     return links, names
 
