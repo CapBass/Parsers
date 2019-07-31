@@ -62,6 +62,8 @@ def get_news_list(news_html):
         story_html = story.findAll(['div', 'h2', 'a'],
                                    {'class': re.compile('(story__(info|text|title)|rubric-label_top)')})
         story_data['category'] = story_html[0].text
+        link = 'https://news.yandex.ru' + story_html[1].find('a').attrs['href']
+        story_data['link'] = link
         story_data['title'] = story_html[1].text
         story_data['text'] = story_html[2].text
         try:
@@ -97,6 +99,7 @@ def show(news_split_list):
         print(f'Рубрика "{category}"')
         print()
         for news in news_list:
+            print(news['link'])
             print(news['title'])
             if news['text']:
                 print(news['text'])
