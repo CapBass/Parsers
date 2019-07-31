@@ -99,10 +99,10 @@ def show(news_split_list):
         print(f'Рубрика "{category}"')
         print()
         for news in news_list:
-            print(news['link'])
             print(news['title'])
             if news['text']:
                 print(news['text'])
+            print(news['link'])
             print(news['date'].__format__('%d %m %Y %H:%M'))
             print()
 
